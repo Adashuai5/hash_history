@@ -39,6 +39,27 @@
         }
       }
       window.addEventListener("popstate", watchHistory, false);
+
+      // 实现监听
+      function addListen(type) {
+        const source = history[type];
+        return function () {
+          const event = new Event(type);
+          event.arguments = arguments;
+          window.dispatchEvent(event);
+          return source.apply(this, arguments);
+        };
+      }
+      //重写方法
+      history.pushState = addListen("pushState");
+      history.replaceState = addListen("replaceState");
+      //实现监听
+      window.addEventListener("replaceState", (e) => {
+        console.log("我监听了 replaceState");
+      });
+      window.addEventListener("pushState", (e) => {
+        console.log("我监听了 pushState");
+      });
     </script>
   </body>
 </html>
