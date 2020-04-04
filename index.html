@@ -3,54 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Hash 路由</title>
+    <title>前端路由</title>
   </head>
   <body>
-    <ul>
-      <li><a href="#red">红色背景</a></li>
-      <li><a href="#green">绿色背景</a></li>
-      <li><a href="#grey">灰色背景</a></li>
-    </ul>
-    <button id="back" disabled="true">后退</button>
-    <script>
-      let isGoBack = false;
-      const history = [];
-      function watchHash() {
-        const hash = window.location.hash.slice(1) || "/";
-        // 防止后退时也记录 hash
-        if (!isGoBack && window.location.hash) {
-          history.push(window.location.hash);
-        }
-        back.disabled = history.length > 0 ? false : true;
-        console.log(history);
-        switch (hash) {
-          case "red":
-            document.body.style.background = "red";
-            break;
-          case "green":
-            document.body.style.background = "green";
-            break;
-          case "grey":
-            document.body.style.background = "grey";
-            break;
-          default:
-            document.body.style.background = "#fff";
-        }
-        isGoBack = false;
-      }
-      back.onclick = goBack;
-      function goBack() {
-        isGoBack = true;
-        if (history.length > 0) {
-          history.pop(1);
-          window.location.hash = history[history.length - 1] || "";
-        } else {
-          back.disabled = true;
-        }
-      }
-      window.addEventListener("load", watchHash, false);
-      window.addEventListener("hashchange", watchHash, false);
-    </script>
+    <div id="page">
+      <a href="./hash.html">Hash 模式</a>
+      <a href="./history.html">History 模式</a>
+    </div>
   </body>
 </html>

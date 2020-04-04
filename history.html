@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History 路由</title>
+  </head>
+  <body>
+    <ul id="ul">
+      <li><a href="/red">红色背景</a></li>
+      <li><a href="/green">绿色背景</a></li>
+      <li><a href="/grey">灰色背景</a></li>
+    </ul>
+    <script>
+      const path = window.location.pathname;
+      history.replaceState({ path: path }, null, path);
+      ul.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") {
+          e.preventDefault();
+          const path = e.target.getAttribute("href");
+          history.pushState({ path: path }, null, path);
+          watchHistory(path);
+        }
+      });
+      function watchHistory() {
+        const path = window.location.pathname;
+        switch (path) {
+          case "/red":
+            document.body.style.background = "red";
+            break;
+          case "/green":
+            document.body.style.background = "green";
+            break;
+          case "/grey":
+            document.body.style.background = "grey";
+            break;
+          default:
+            document.body.style.background = "#fff";
+        }
+      }
+      window.addEventListener("popstate", watchHistory, false);
+    </script>
+  </body>
+</html>
